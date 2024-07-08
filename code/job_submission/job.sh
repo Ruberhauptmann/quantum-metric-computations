@@ -24,7 +24,7 @@ git annex dead here
 git checkout -b "job-${FULLJOBID}"
 
 # run the job
-LC_NUMERIC="en_US.UTF-8" printf -v result_path "minimise_results/%.2f/%.2f" $V $mu
+LC_NUMERIC="en_US.UTF-8" printf -v result_path "minimise_results/V_%.2f/mu_%.2f" $V $mu
 datalad run \
   -m "Compute V=${V}, mu=${mu}" \
   --explicit \
