@@ -7,6 +7,7 @@
 #SBATCH --mail-user=tsievers@physnet.uni-hamburg.de
 #SBATCH --mail-type=ALL
 
+module purge
 module load anaconda3/2023.03
 conda activate quant-met-computations
 
