@@ -4,10 +4,12 @@ channels:
   - conda-forge
 dependencies:
   - pip=24.0
-  - python=3.12.4
-  - datalad=1.1.1
-  - jupyterlab=4.2.3
+  - python=3.12
+  - datalad==1.1.1
   - pip:
+      - pandas==2.2.2
+      - numpy==2.0.0
+      - jupyterlab==4.2.3
       - click==8.1.7
       - quant-met==0.0.3
       - pre-commit==3.7.1
