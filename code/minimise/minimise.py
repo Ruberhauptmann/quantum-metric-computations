@@ -16,8 +16,8 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
     results_path = Path(results_path)
     results_path.mkdir(exist_ok=True, parents=True)
 
-    #U_range = np.linspace(start=0.01, stop=3, num=20)
-    U_range = [1]
+    U_range = np.linspace(start=0.01, stop=3, num=20)
+    #U_range = [1]
 
     lattice_constant = np.sqrt(3)
 
@@ -54,11 +54,10 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         solution = optimize.differential_evolution(
             func=mean_field.free_energy_complex_gap,
             polish=True,
-            #tol=1e-7,
-            tol=1e-5,
+            tol=1e-7,
             #tol=1e-2,  # For testing purposes
-            #workers=nprocs,
-            #updating="deferred",
+            workers=nprocs,
+            updating="deferred",
             args=(egx_h, BZ_grid),
             bounds=[
                 (-100, 100),
