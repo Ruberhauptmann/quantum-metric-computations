@@ -13,7 +13,6 @@ from scipy import optimize
 @click.option("--path", 'results_path', type=click.Path(), prompt="Path for saving results")
 @click.option("--nprocs", type=int, prompt="Number of processor cores available")
 def minimise(mu: float, v: float, results_path: str, nprocs:int):
-
     results_path = Path(results_path)
     results_path.mkdir(exist_ok=True, parents=True)
 
@@ -55,10 +54,11 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         solution = optimize.differential_evolution(
             func=mean_field.free_energy_complex_gap,
             polish=True,
-            tol=1e-7,
+            #tol=1e-7,
+            tol=1e-5,
             #tol=1e-2,  # For testing purposes
-            workers=nprocs,
-            updating="deferred",
+            #workers=nprocs,
+            #updating="deferred",
             args=(egx_h, BZ_grid),
             bounds=[
                 (-100, 100),

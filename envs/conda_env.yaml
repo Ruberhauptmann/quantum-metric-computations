@@ -9,5 +9,5 @@ dependencies:
   - jupyterlab=4.2.3
   - pip:
       - click==8.1.7
-      - quant-met==0.0.3
+      - quant-met==0.0.4
       - pre-commit==3.7.1
