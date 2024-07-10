@@ -16,8 +16,8 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
     results_path = Path(results_path)
     results_path.mkdir(exist_ok=True, parents=True)
 
-    U_range = np.linspace(start=0.01, stop=3, num=20)
-    # U_range = [1]
+    #U_range = np.linspace(start=0.01, stop=3, num=20)
+    U_range = [1]
 
     lattice_constant = np.sqrt(3)
 
