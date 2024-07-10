@@ -34,7 +34,7 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
     )
 
     BZ_grid = utils.generate_uniform_grid(
-        20, 20, all_K_points[1], all_K_points[5], origin=np.array([0, 0])
+        40, 40, all_K_points[1], all_K_points[5], origin=np.array([0, 0])
     )
 
     for i, U in enumerate(U_range):
@@ -84,10 +84,11 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         # Calculate superfluid weight (and correct global phase)
         D_S_conv, D_S_geom = mean_field.superfluid_weight(h=egx_h, k_grid=BZ_grid)
 
-        D_S_global_phase = np.angle(D_S_conv[0, 0])
+        D_S_conv_global_phase = np.angle(D_S_conv[0, 0])
+        D_S_geom_global_phase = np.angle(D_S_geom[0, 0])
 
-        D_S_conv = np.exp(-1j * D_S_global_phase) * D_S_conv
-        D_S_geom = np.exp(-1j * D_S_global_phase) * D_S_geom
+        D_S_conv = np.exp(-1j * D_S_conv_global_phase) * D_S_conv
+        D_S_geom = np.exp(-1j * D_S_geom_global_phase) * D_S_geom
 
         with h5py.File(str(result_file), "r+") as f:
             for key, value in zip(
