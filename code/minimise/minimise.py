@@ -52,7 +52,7 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         start = time.time()
 
         solution = optimize.differential_evolution(
-            func=mean_field.free_energy_complex_gap,
+            func=mean_field.free_energy_real_gap,
             polish=True,
             tol=1e-8,
             #tol=1e-2,  # For testing purposes
@@ -60,9 +60,6 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
             updating="deferred",
             args=(egx_h, BZ_grid),
             bounds=[
-                (-100, 100),
-                (-100, 100),
-                (-100, 100),
                 (-100, 100),
                 (-100, 100),
                 (-100, 100),
@@ -74,10 +71,11 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         print(f"Time taken to solve the gap equation: {end - start:0.2f} seconds")
         start = time.time()
 
-        egx_h.delta_orbital_basis = solution.x[0::2] + 1j * solution.x[1::2]
+        egx_h.delta_orbital_basis = solution.x
         # Correct phase in gap
-        delta_global_phase = np.angle(egx_h.delta_orbital_basis[0])
-        egx_h.delta_orbital_basis = np.exp(-1j * delta_global_phase) * egx_h.delta_orbital_basis
+        #delta_global_phase = np.angle(egx_h.delta_orbital_basis[0])
+        #egx_h.delta_orbital_basis = np.exp(-1j * delta_global_phase) * egx_h.delta_orbital_basis
+
         result_file = results_path.joinpath(f"U_{U:.2f}.hdf5")
         egx_h.save(result_file)
 
