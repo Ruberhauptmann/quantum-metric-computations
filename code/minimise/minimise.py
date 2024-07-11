@@ -34,7 +34,7 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
     )
 
     BZ_grid = utils.generate_uniform_grid(
-        40, 40, all_K_points[1], all_K_points[5], origin=np.array([0, 0])
+        20, 20, all_K_points[1], all_K_points[5], origin=np.array([0, 0])
     )
 
     for i, U in enumerate(U_range):
@@ -54,7 +54,7 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         solution = optimize.differential_evolution(
             func=mean_field.free_energy_complex_gap,
             polish=True,
-            tol=1e-7,
+            tol=1e-8,
             #tol=1e-2,  # For testing purposes
             workers=nprocs,
             updating="deferred",
@@ -82,6 +82,9 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
         egx_h.save(result_file)
 
         # Calculate superfluid weight (and correct global phase)
+        BZ_grid = utils.generate_uniform_grid(
+            40, 40, all_K_points[1], all_K_points[5], origin=np.array([0, 0])
+        )
         D_S_conv, D_S_geom = mean_field.superfluid_weight(h=egx_h, k_grid=BZ_grid)
 
         D_S_conv_global_phase = np.angle(D_S_conv[0, 0])
