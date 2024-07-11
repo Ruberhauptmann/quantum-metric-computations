@@ -73,6 +73,8 @@ def minimise(mu: float, v: float, results_path: str, nprocs:int):
 
         egx_h.delta_orbital_basis = solution.x
         # Correct phase in gap
+        delta_sign = np.sign(egx_h.delta_orbital_basis[0])
+        egx_h.delta_orbital_basis = delta_sign * egx_h.delta_orbital_basis
         #delta_global_phase = np.angle(egx_h.delta_orbital_basis[0])
         #egx_h.delta_orbital_basis = np.exp(-1j * delta_global_phase) * egx_h.delta_orbital_basis
 
